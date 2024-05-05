@@ -3,10 +3,11 @@ import { SongCard } from "../components/SongCard"
 import { Buffer } from 'buffer';
 import { useState } from "react";
 
-const { VITE_CLIENT_ID: client_id, VITE_CLIENT_SECRET: client_secret } = import.meta;
+const { VITE_CLIENT_ID: client_id, VITE_CLIENT_SECRET: client_secret } = import.meta.env;
 
 export const Home = () => {
     const [actualSong, setActualSong] = useState(0);
+    console.log(client_id, client_secret);
 
     const needToken = localStorage.getItem('token') === null;
 
