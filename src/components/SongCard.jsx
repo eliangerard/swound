@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
 
-export const SongCard = ({ className, play, setActualSong, artists, album, name, preview_url: preview, }) => {
+export const SongCard = ({ id, setLikedSongs, className, volume, setVolume, play, setActualSong, artists, album, name, preview_url: preview, }) => {
 
     const audoPlayer = useRef(null);
 
@@ -14,9 +14,16 @@ export const SongCard = ({ className, play, setActualSong, artists, album, name,
         }
     }, [play]);
 
+    useEffect(() => {
+        audoPlayer.current.volume = volume / 100;
+    }, [volume]);
+
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
         setActualSong((prev) => prev + 1);
+        if(direction === 'right') {
+            setLikedSongs((prev) => [...prev, id]);
+        }
     }
 
     const onCardLeftScreen = (myIdentifier) => {
@@ -27,7 +34,7 @@ export const SongCard = ({ className, play, setActualSong, artists, album, name,
         <TinderCard className={`w-fit absolute ${className}`}
             onSwipe={onSwipe}
             onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-            preventSwipe={['up', 'down']}
+            preventSwipe={['up', 'down']}        
         >
             {/* <img className='select-none pointer-events-none	h-[400px] w-[375px]' src="/mock.png" alt="" /> */}
             <div className='relative h-[400px] w-[375px] flex bg-white rounded-lg shadow-lg text-white select-none overflow-hidden'>
@@ -35,7 +42,9 @@ export const SongCard = ({ className, play, setActualSong, artists, album, name,
                 <div className='absolute bottom-0 p-4 h-fit w-full bg-black/50'>
                     <h1 className='font-bold text-lg'>{name}</h1>
                     <p className='text-sm'>{artists.map(artist => artist.name).join(', ')}</p>
-                    <audio ref={audoPlayer} className='w-full mt-4' controls src={preview}></audio>
+                    <audio loop ref={audoPlayer} className='w-full mt-4' src={preview}
+                        onVolumeChange={(e) => setVolume(e.target.volume * 100)}
+                    ></audio>
                 </div>
             </div>
         </TinderCard>
