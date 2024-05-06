@@ -12,9 +12,13 @@
   "dependencies": {
     "@react-spring/web": "^9.5.5",
     "@tanstack/react-query": "^5.34.2",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-tinder-card": "^1.6.4"
+    "react-router-dom": "^6.23.0",
+    "react-tinder-card": "^1.6.4",
+    "sort-by": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -6,6 +6,8 @@ import {
   useQuery,
 } from '@tanstack/react-query'
 import { Home } from './pages/Home'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Callback } from './middlewares/Callback'
 
 const queryClient = new QueryClient()
 
@@ -17,8 +19,12 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <div className='max-w-screen-lg w-full flex items-center justify-center'>
-          <Home />
-
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/callback' element={<Callback/>}/>
+            </Routes>
+          </BrowserRouter>
         </div>
       </QueryClientProvider>
     </>
